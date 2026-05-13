@@ -3,12 +3,16 @@ name = "open-source-template"
 version = "0.0.0"  # DO NOT SET. The version of the package is always set by the CI/CD pipeline.
 description = "A demo for the OSS template at MeteoSwiss."
 license = "BSD-3-Clause"
-authors = ["Michele Cattaneo <michele.cattaneo@meteoswiss.ch>"]
+authors = ["Michele Cattaneo [michele.cattaneo@meteoswiss.ch](mailto:michele.cattaneo@meteoswiss.ch)"]
 readme = "README.rst"
 include = ["CHANGELOG.rst"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
+httpx = "^0.28.0"
+pandas = "^2.2.0"
+matplotlib = "^3.9.0"
+numpy = "^2.1.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.15.0"
@@ -47,7 +51,6 @@ min-public-methods = 0
 [tool.mypy]
 ignore_missing_imports = true
 disallow_untyped_defs = true
-
 
 [tool.coverage.run]
 omit = ["test/**",  "doc/**"]
