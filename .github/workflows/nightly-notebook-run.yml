@@ -36,12 +36,14 @@ jobs:
           poetry config virtualenvs.create false
           poetry install --no-interaction --no-root
 
-      # Step 5: Run all notebooks
+      # Step 5: Execute notebooks
       - name: Execute notebooks
         run: |
           mkdir -p executed_notebooks
 
           for notebook in notebooks/*.ipynb; do
             echo "Running $notebook"
-            papermill "$notebook" "executed_notebooks/$(basename "$notebook")"
+            poetry run papermill \
+              "$notebook" \
+              "executed_notebooks/$(basename "$notebook")"
           done
