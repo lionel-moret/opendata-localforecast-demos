@@ -48,9 +48,9 @@ jobs:
               "executed_notebooks/$(basename "$notebook")"
           done
 
-      # Step 5: Upload executed notebooks as artifacts
-      - name: Upload executed notebooks
+      # Step 6: Upload generated meteogram image as an artifact
+      - name: Upload meteogram image
         uses: actions/upload-artifact@v4
         with:
-          name: executed-notebooks
-          path: executed_notebooks/*.ipynb
+          name: meteogram-image
+          path: meteogram.png
