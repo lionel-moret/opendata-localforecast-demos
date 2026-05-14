@@ -13,6 +13,7 @@ httpx = "^0.28.0"
 pandas = "^2.2.0"
 matplotlib = "^3.9.0"
 numpy = "^2.1.0"
+papermill = "^2.5"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.15.0"
