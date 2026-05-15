@@ -16,6 +16,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Debug - List files
+        run: |
+          echo "Current working directory: $(pwd)"
+          echo "Listing all files recursively:"
+          ls -R
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -46,6 +52,11 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add metadata_reference.csv
-          git commit -m "chore: update metadata reference file"
-          git push
+          # Check if the file exists before trying to add it
+          if [ -f metadata_reference.csv ]; then
+            git add metadata_reference.csv
+            git commit -m "chore: update metadata reference file"
+            git push
+          else
+            echo "No metadata_reference.csv found to commit."
+          fi
