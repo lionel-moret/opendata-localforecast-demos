@@ -26,13 +26,16 @@ jobs:
 
       - name: Check for Metadata Changes
         id: check
-        # This command finds the script regardless of which folder it is in
         run: |
+          # Find the script and print its location
           SCRIPT_PATH=$(find . -name "check_metadata.py" | head -n 1)
           if [ -z "$SCRIPT_PATH" ]; then
-            echo "Error: check_metadata.py not found in the repository!"
+            echo "❌ Error: check_metadata.py not found in the repository!"
             exit 1
           fi
+          echo "✅ Found script at: $SCRIPT_PATH"
+          
+          # Run the script
           python "$SCRIPT_PATH"
         continue-on-error: true
 
@@ -53,12 +56,15 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          # Find the reference file wherever the script created it
+          
+          # Find the reference file and print its location
           REF_PATH=$(find . -name "metadata_reference.csv" | head -n 1)
+          
           if [ -n "$REF_PATH" ]; then
+            echo "✅ Found reference file to commit at: $REF_PATH"
             git add "$REF_PATH"
             git commit -m "chore: update metadata reference file"
             git push
           else
-            echo "No metadata_reference.csv found to commit."
+            echo "⚠️ No metadata_reference.csv found. If this is the first run, the script should have created it."
           fi
